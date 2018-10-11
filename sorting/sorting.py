@@ -9,14 +9,15 @@ import math
 def main():
     array = [1005, 100, 5, 87, 905, 1983, 1, 42, 314]
 
-    print("Radix sort")
-    print(radix_sort(array))
+    # print("Radix sort")
+    # print(radix_sort(array))
 
-    print("Insertion sort")
-    print(insertion_sort(array))
+    # print("Insertion sort")
+    # print(insertion_sort(array))
 
     print("Merge sort")
-    print(merge_sort(array))
+    merge_sort(array)
+    print(array)
 
 
 def heap_sort(A):
@@ -49,7 +50,7 @@ def merge_sort(A):
 
         # check to see if the right index is larger than the left
         # because we are only concerned w/ arrays w/ at least 2 elements
-        if l > r:
+        if l < r:
 
             # find the middle index
             middle = int((l+r)/2)
@@ -111,8 +112,6 @@ def merge_sort(A):
     # call our helper
     merge_sort_helper(A, 0, len(A)-1)
 
-    return A
-
 
 def radix_sort(A):
     '''
@@ -148,8 +147,6 @@ def radix_sort(A):
             for item in bucket:
                 A[index] = item
                 index += 1
-
-    return A
 
 
 def insertion_sort(A):
@@ -190,8 +187,6 @@ def insertion_sort(A):
 
         # insert the key into the current position of the j pointer
         A[j+1] = key
-
-    return A
 
 
 if __name__ == "__main__":
