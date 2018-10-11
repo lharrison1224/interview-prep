@@ -15,6 +15,9 @@ def main():
     print("Insertion sort")
     print(insertion_sort(array))
 
+    print("Merge sort")
+    print(merge_sort(array))
+
 
 def heap_sort(A):
     pass
@@ -25,7 +28,90 @@ def quick_sort(A):
 
 
 def merge_sort(A):
-    pass
+    '''
+        Merge sort works by splitting the array in half, calling merge
+        sort on each half, then merging the two arrays together in order.
+
+        Merge sort is better than quicksort if you are sorting a linked list
+        because the merge operation can be done in O(1) space instead of O(n).
+        In addition, it also has less "direct accesses" into an array, of the 
+        form A[4]. As a linked list this is an expensive operation, and quicksort
+        has a lot of these accesses.
+
+        Time complexity: O(nlogn) ... actually theta(nlogn)
+        Space complexity: O(n)
+        Stable: yes
+    '''
+
+    # define a merge sort helper function to provide an interface to
+    # the user that doesn't require them to provide a left and right index
+    def merge_sort_helper(A, l, r):
+
+        # check to see if the right index is larger than the left
+        # because we are only concerned w/ arrays w/ at least 2 elements
+        if l > r:
+
+            # find the middle index
+            middle = int((l+r)/2)
+
+            # call merge sort on the left half
+            merge_sort_helper(A, l, middle)
+
+            # call merge sort on the right half
+            merge_sort_helper(A, middle+1, r)
+
+            # merge the two halves that were just sorted
+            merge(A, l, middle, r)
+
+    def merge(A, l, m, r):
+
+        # count the elements in each side of the array
+        nl = m - l + 1
+        nr = r - m
+
+        # create temp arrays
+        L = [0] * (nl)
+        R = [0] * (nr)
+
+        # Copy data to temp arrays L[] and R[]
+        for i in range(0, nl):
+            L[i] = A[l + i]
+
+        for j in range(0, nr):
+            R[j] = A[m + 1 + j]
+
+        # Merge the temp arrays back into arr[l..r]
+        i = 0     # Initial index of first subarray
+        j = 0     # Initial index of second subarray
+        k = l     # Initial index of merged subarray
+
+        while i < nl and j < nr:
+            if L[i] <= R[j]:
+                A[k] = L[i]
+                i += 1
+            else:
+                A[k] = R[j]
+                j += 1
+            k += 1
+
+        # Copy the remaining elements of L[], if there
+        # are any
+        while i < nl:
+            A[k] = L[i]
+            i += 1
+            k += 1
+
+        # Copy the remaining elements of R[], if there
+        # are any
+        while j < nr:
+            A[k] = R[j]
+            j += 1
+            k += 1
+
+    # call our helper
+    merge_sort_helper(A, 0, len(A)-1)
+
+    return A
 
 
 def radix_sort(A):
