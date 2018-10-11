@@ -1,6 +1,6 @@
 '''
     This file contains the source code for heapsort, quicksort,
-    merge sort, radix sort, and insertion sort. 
+    merge sort, radix sort, and insertion sort.
 '''
 
 import math
@@ -10,13 +10,17 @@ def main():
     array = [1005, 100, 5, 87, 905, 1983, 1, 42, 314]
 
     # print("Radix sort")
-    # print(radix_sort(array))
+    # radix_sort(array)
 
     # print("Insertion sort")
-    # print(insertion_sort(array))
+    # insertion_sort(array)
 
-    print("Merge sort")
-    merge_sort(array)
+    # print("Merge sort")
+    # merge_sort(array)
+
+    print("Quick sort")
+    quick_sort(array)
+
     print(array)
 
 
@@ -25,7 +29,63 @@ def heap_sort(A):
 
 
 def quick_sort(A):
-    pass
+    '''
+        Quick sort works by first partioning an array around a pivot such that all
+        elements left of the pivot are less than equal to the pivot and all elements
+        right of the pivot are greater than the pivot. Then the quick sort function
+        is recursively called on both the left and right segments. 
+
+        Quick sort is generally considered the best all-purpose sorting algorithm
+        except in a few cases (integers only, linked lists)
+
+        Time complexity (average/best cases): O(nlogn)
+        Time complexity (worst case): O(n^2) occurs when the pivot is picked as the
+                                             largest or smallest element every time
+        Space complexity: O(1) extra space
+        Stable: no, can be modified to be made stable by comparing value AND initial index
+    '''
+
+    # partition splits the given subarray into 3 sections: a segment that
+    # is all <= to a pivot, a pivot, and a segment that is all > than a pivot
+    # and it returns the index of the pivot
+    def partition(A, low, high):
+
+        # pick a pivot, can be anything, here it is last element
+        # runtimes can be improved by picking 3 values and picking median
+        pivot = A[high]
+
+        # the index of where elements smaller than the pivot will be placed
+        i = low - 1
+
+        for j in range(low, high):
+
+            # see if the current element is lower than the pivot
+            if A[j] <= pivot:
+
+                # increase the index to insert into
+                i += 1
+                A[i], A[j] = A[j], A[i]
+
+        # place the pivot in its spot
+        A[i+1], A[high] = A[high], A[i+1]
+        return i+1
+
+    # create a helper function so the user does not have to call
+    # the function with low and high params
+    def quick_sort_helper(A, low, high):
+
+        # see if we have a valid subarray
+        if low < high:
+
+            # select a pivot using partition algorithm
+            pivot = partition(A, low, high)
+
+            # quicksort both halves of the array
+            quick_sort_helper(A, low, pivot-1)
+            quick_sort_helper(A, pivot+1, high)
+
+    # call our helper
+    quick_sort_helper(A, 0, len(A)-1)
 
 
 def merge_sort(A):
