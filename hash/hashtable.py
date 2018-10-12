@@ -52,7 +52,7 @@ def main():
     hash function takes a key (almost always a string), performs some
     mathematical operation on it, and returns an index that represents
     the "bucket" that the element should be placed into. It is paramount
-    that a hash function is well-defined and static.
+    that a hash function is well-defined and deterministic.
 '''
 
 
