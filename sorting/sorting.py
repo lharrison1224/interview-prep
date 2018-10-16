@@ -18,14 +18,57 @@ def main():
     # print("Merge sort")
     # merge_sort(array)
 
-    print("Quick sort")
-    quick_sort(array)
+    # print("Quick sort")
+    # quick_sort(array)
+
+    print("Heap sort")
+    heap_sort(array)
 
     print(array)
 
 
 def heap_sort(A):
-    pass
+
+    def heapify(A, i):
+        left = 2*i
+        right = 2*i+1
+        largest = i
+        heapsize = len(A) - 1  # subtract 1 because 1-indexed
+        if left <= heapsize and A[left] > A[i]:
+            largest = left
+
+        if right <= heapsize and A[right] > A[largest]:
+            largest = right
+
+        if largest != i:
+            A[i], A[largest] = A[largest], A[i]
+            heapify(A, largest)
+
+    def build_heap(A):
+        # add 1 because our heaps are 1-indexed for convenience
+        heap = [None] * (len(A) + 1)
+
+        # copy the array into our heap structure
+        for i in range(1, len(heap)):
+            heap[i] = A[i-1]
+
+        # call heapify for all nodes that have children
+        for i in range(int((len(heap)-1)/2), 0, -1):
+            heapify(heap, i)
+
+        return heap
+
+    def heap_extract_max(A):
+        A[1], A[len(A)-1] = A[len(A)-1], A[1]
+        max_val = A.pop(len(A) - 1)
+        heapify(A, 1)
+
+        return max_val
+
+    # start the heapsort process
+    heap = build_heap(A)
+    for i in range(len(A)-1, -1, -1):
+        A[i] = heap_extract_max(heap)
 
 
 def quick_sort(A):
