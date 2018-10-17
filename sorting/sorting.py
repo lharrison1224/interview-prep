@@ -28,6 +28,24 @@ def main():
 
 
 def heap_sort(A):
+    '''
+        Heap sort works by building a heap with the given array, then repeatedly
+        extracting the max or min, depending on whether or not it is a min- or
+        max-heap. The extract max procedure requires O(h) time, where h is the 
+        height of the tree. This roughly evaluates to O(logn) time.
+
+        In general, heap sort is very good. It requires O(1) additional space if
+        it is implemented in-place. This implementation is not in place because 
+        for convenience I used the build_heap() method which creates a heap data
+        structure and returns it. However, in practice, Quicksort turns out to be
+        faster, even though it has a worse worst-case run time. In practice, that
+        case can be avoided, and it turns out the partition operation is less
+        expensive than maintaining a heap. In addition, heapsort is not stable.
+
+        Time complexity: O(nlogn)
+        Space complexity: O(1) extra space
+        Stable: no
+    '''
 
     def heapify(A, i):
         left = 2*i
