@@ -30,6 +30,7 @@ def main():
     print("Found 5") if binary_search(root, 5) else print("Did not find 5")
     print("BST printed inorder")
     print_bst(root, mode="inorder")
+    print_bst(root, mode="breadth_first")
 
 
 def bst_insert(root, val):
@@ -92,6 +93,19 @@ def print_bst(root, mode="inorder"):
         postorder_print(root.right)
         print(root.val)
 
+    def breadth_first_print(root):
+        if root is None:
+            return
+
+        Q = [root]
+        while len(Q) > 0:
+            current = Q.pop(0)
+            if current.left is not None:
+                Q.append(current.left)
+            if current.right is not None:
+                Q.append(current.right)
+            print(current.val)
+
     if mode == "inorder":
         inorder_print(root)
 
@@ -100,6 +114,9 @@ def print_bst(root, mode="inorder"):
 
     elif mode == "postorder":
         postorder_print(root)
+
+    elif mode == "breadth_first":
+        breadth_first_print(root)
 
 
 def bst_delete(root, val):
