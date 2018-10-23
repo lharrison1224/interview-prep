@@ -30,26 +30,21 @@ def main():
     print("Found 5") if binary_search(root, 5) else print("Did not find 5")
     print("BST printed inorder")
     print_bst(root, mode="inorder")
+    print("BST printed level order")
     print_bst(root, mode="breadth_first")
 
 
 def bst_insert(root, val):
     if root is None:
-        raise ValueError('Root node is None')
+        return Node(val)
 
     if root.val == val:
         raise ValueError('Attempted to insert duplicate value into BST')
 
     if val < root.val:
-        if root.left == None:
-            root.left = Node(val)
-        else:
-            bst_insert(root.left, val)
+        root.left = bst_insert(root.left, val)
     elif val > root.val:
-        if root.right == None:
-            root.right = Node(val)
-        else:
-            bst_insert(root.right, val)
+        root.right = bst_insert(root.right, val)
 
     return root
 
