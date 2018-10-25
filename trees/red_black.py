@@ -15,6 +15,8 @@ class Node:
 def main():
     root = rb_insert(None, 5)
     root = rb_insert(root, 7)
+    root = rb_insert(root, 3)
+    root = rb_insert(root, 4)
     inorder_print(root)
 
 
@@ -33,6 +35,12 @@ def rb_insert(root, val):
             root.right = rb_insert_helper(root.right, val)
 
         return root
+
+    def left_rotate(x):
+        pass
+
+    def right_rotate(x):
+        pass
 
     def rb_fixup(root, val):
         # if the current node was the root
